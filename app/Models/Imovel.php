@@ -12,4 +12,6 @@ class Imovel extends Model
     ];
     protected $table ='imoveis';
     use HasFactory;
+
+  
 }

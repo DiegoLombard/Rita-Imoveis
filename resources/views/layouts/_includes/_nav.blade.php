@@ -14,13 +14,13 @@
                     <a class="nav-link" href="{{route('imoveis.index')}}">Todos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('imoveis.index', 'tipo=apartamento')}}">Apartamentos</a>
+                    <a class="nav-link" href="{{route('imoveis.apartamento')}}">Apartamentos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('imoveis.index', 'tipo=casa')}}">Casas</a>
+                    <a class="nav-link" href="{{route('imoveis.casa')}}">Casas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('imoveis.index', 'tipo=kitnets')}}">Kitnets</a>
+                    <a class="nav-link" href="{{route('imoveis.kitnet')}}">Kitnets</a>
                 </li>
             </ul>
 

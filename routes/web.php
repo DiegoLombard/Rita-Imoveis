@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Imovel;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return view('welcome');
@@ -35,4 +37,9 @@ Route::get('imoveis/delete/{id}', ['uses' => 'App\Http\Controllers\ImovelControl
 Route::get('imoveis/destroy/{id}', ['uses' => 'App\Http\Controllers\ImovelController@destroy', 'as' => 'imoveis.destroy']);
 
 
+Route::post('imoveis/buscar', ['uses' => 'App\Http\Controllers\ImovelController@buscar', 'as' => 'imoveis.buscar']);
+
+Route::get('imoveis/apartamento', ['uses' => 'App\Http\Controllers\ImovelController@mostrarApartamento', 'as' => 'imoveis.apartamento']);
+Route::get('imoveis/casa', ['uses' => 'App\Http\Controllers\ImovelController@mostrarCasa', 'as' => 'imoveis.casa']);
+Route::get('imoveis/kitnet', ['uses' => 'App\Http\Controllers\ImovelController@mostrarKitnet', 'as' => 'imoveis.kitnet']);
 

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ImovelRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Database\Eloquent\Collection;
 
 
 class ImovelController extends Controller
@@ -22,31 +23,10 @@ class ImovelController extends Controller
      */
     public function index(Request $request)
     {
-        $qtd = $request['qtd'] ? : 2;
-        $page = $request['page'] ? : 1;
-        $buscar = $request['buscar'];
-        $tipo = $request['tipo'];
-        Paginator::currentPageResolver(function () use ($page){
-            return $page;
-        });  
-        if($buscar)
-        {
-            $imoveis = DB::table('imoveis')->where('cidadeEndereco', '=', $buscar);
-            $imoveis->paginate($qtd);
-        }else {
-            if($tipo)
-            {
-                $imoveis = DB::table('imoveis')->where('tipo', '=', $tipo);
-                $imoveis->paginate($qtd);
-            } else{
-                $imoveis = DB::table('imoveis');
-                $imoveis->paginate($qtd);
-            }
-
-        $imoveis = DB::table('imoveis')->paginate($qtd);
-        $imoveis = $imoveis->appends(Request::capture()->except('page'));
+       
+        $imoveis = Imovel::paginate(3);
         return view('imoveis.index', compact('imoveis'));
-    }
+    
     }
 
     public function home()
@@ -137,4 +117,40 @@ class ImovelController extends Controller
         $imovel = Imovel::find($id)->delete();
         return redirect()->route('imoveis.index');
     }
+    public function buscar(Request $request)
+    {
+       
+        
+      
+        $imoveis = Imovel::where('cidadeEndereco', 'LIKE',  "%{$request->buscar}%")
+        ->paginate();
+       
+                           
+        return view('imoveis.index', compact( 'imoveis' ));                        
+
+    }
+    public function mostrarApartamento(Request $request)
+    {
+        $imoveis = Imovel::where('tipo', '=',  "apartamento")
+        ->paginate();
+
+        return view('imoveis.index', compact( 'imoveis' ));
+    }
+
+    public function mostrarCasa(Request $request)
+    {
+        $imoveis = Imovel::where('tipo', '=',  "casa")
+        ->paginate();
+
+        return view('imoveis.index', compact( 'imoveis' ));
+    }
+
+    public function mostrarKitnet(Request $request)
+    {
+        $imoveis = Imovel::where('tipo', '=',  "kitnet")
+        ->paginate();
+
+        return view('imoveis.index', compact( 'imoveis' ));
+    }
+
 }
